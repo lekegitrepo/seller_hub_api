@@ -8,7 +8,7 @@ describe 'ApiConstraints' do
   describe 'matches?' do
     it "returns true when the version matches the 'Accept' header" do
       request = double(host: 'api.sellerhub.dev',
-                       headers: { 'Accept' => 'application/vnd.sellerhub.v1' })
+                       headers: { 'Accept' => 'application/sellerhub.v1' })
 
       expect(api_constraints_v1.matches?(request)).to be_truthy
     end

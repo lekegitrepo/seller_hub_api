@@ -1,5 +1,7 @@
 require_relative 'boot'
 
+# require './lib/api_constraints'
+
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
@@ -35,7 +37,7 @@ module SellerHubApi
     # don't generate RSpec tests for views and helpers
     config.generators do |g|
       g.test_framework :rspec, fixture: true
-      g.fixture_replacement :factory_girl, dir: 'spec/factories'
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
       g.view_specs false
       g.helper_specs false
       g.stylesheets = false
@@ -43,6 +45,9 @@ module SellerHubApi
       g.helper = false
     end
 
-    config.autoload_paths += %W(\#{config.root}/lib)
+    # config.autoload_paths += %W(\#{config.root}/lib)
+    config.autoload_paths << "#{Rails.root}/lib"
+    # config.eager_load_paths << Rails.root.join('lib/')
+    # config.autoload_paths += Dir["#{config.root}/lib"]
   end
 end
