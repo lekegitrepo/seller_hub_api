@@ -44,6 +44,8 @@ group :development, :test do
 
   # Rspec
   gem 'rspec-rails', '~> 4.0.1'
+
+  gem 'shoulda-matchers'
 end
 
 group :development do
