@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Api::V1::UsersController do
+RSpec.describe 'Users', type: :request do
   before(:each) { request.headers['Accept'] = 'application/sellerhub.v1' }
 
   describe 'GET #show' do
