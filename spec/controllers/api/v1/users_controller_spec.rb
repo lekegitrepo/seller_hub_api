@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe 'Users', type: :request do
+RSpec.describe Api::V1::UsersController, type: :controller do # RSpec.describe Api::V1::UsersController, type: :controller do
   before(:each) { request.headers['Accept'] = 'application/sellerhub.v1' }
 
   describe 'GET #show' do
     before(:each) do
       @user = FactoryBot.create :user
-      get :show, id: @user.id, format: :json
+      get :show, params: { id: @user.id, format: :json }
     end
 
     it 'returns the information about a reporter on a hash' do
