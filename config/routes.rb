@@ -6,13 +6,13 @@ Rails.application.routes.draw do
   #                 constraints: { subdomain: 'api' }, path: '/' do
   #   scope module: :v1,
   #         constraints: ApiConstraints.new(version: 1, default: true) do
-  #     resources :users, only: [:show]
+  #     resources :users, only: [:show, :create]
   #   end
   # end
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :users, only: [:show]
+      resources :users, only: [:show, :create]
     end
   end
 end

@@ -21,7 +21,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do # RSpec.describe A
     context 'When user is successfully created' do
       before(:each) do
         @user_attr = FactoryBot.attributes_for :user
-        post :create, { user: @user_attr, format: :json }
+        post :create, params: { user: @user_attr, format: :json }
       end
 
       it 'returns the json representation of the created user record' do
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do # RSpec.describe A
       before(:each) do
         @invalid_user_attributes = { password: '12345678',
                                      password_confirmation: '12345678' }
-        post :create, { user: @invalid_user_attributes }, format: :json
+        post :create, params: { user: @invalid_user_attributes, format: :json }
       end
 
       it 'renders an errors json' do
