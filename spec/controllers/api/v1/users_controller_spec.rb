@@ -54,7 +54,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do # RSpec.describe A
   end
 
   describe 'PUT/PATCH #update' do
-    context 'when is successfully updated' do
+    context 'when user record is successfully updated' do
       before(:each) do
         @user = FactoryBot.create :user
         patch :update, params: { id: @user.id,
@@ -69,7 +69,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do # RSpec.describe A
       it { should respond_with 200 }
     end
 
-    context 'when is not created' do
+    context 'when user record is not updated' do
       before(:each) do
         @user = FactoryBot.create :user
         patch :update, params: { id: @user.id,
@@ -81,7 +81,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do # RSpec.describe A
         expect(user_response).to have_key(:errors)
       end
 
-      it 'renders the json errors on why the user could not be created' do
+      it 'renders the json errors on when the user could not be updated' do
         user_response = JSON.parse(response.body, symbolize_names: true)
         expect(user_response[:errors][:email]).to include 'is invalid'
       end
