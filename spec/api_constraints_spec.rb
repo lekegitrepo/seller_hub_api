@@ -14,7 +14,7 @@ describe 'ApiConstraints' do
     end
 
     it "returns the default version when 'default' option is specified" do
-      request = double(host: 'api.sellerhubapi.dev')
+      request = double(host: 'api.sellerhub.dev')
       expect(api_constraints_v2.matches?(request)).to be_truthy
     end
   end
