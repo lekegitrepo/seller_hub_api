@@ -57,8 +57,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do # RSpec.describe A
     context 'when is successfully updated' do
       before(:each) do
         @user = FactoryBot.create :user
-        patch :update, { id: @user.id,
-                         user: { email: 'newmail@example.com' }, format: :json }
+        patch :update, params: { id: @user.id,
+                                 user: { email: 'newmail@example.com' }, format: :json }
       end
 
       it 'renders the json representation for the updated user' do
@@ -72,8 +72,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do # RSpec.describe A
     context 'when is not created' do
       before(:each) do
         @user = FactoryBot.create :user
-        patch :update, { id: @user.id,
-                         user: { email: 'bademail.com' }, format: :json }
+        patch :update, params: { id: @user.id,
+                                 user: { email: 'bademail.com' }, format: :json }
       end
 
       it 'renders an errors json' do
