@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Api::V1::SessionsController do
+RSpec.describe Api::V1::SessionsController do
   describe 'POST #create' do
     before(:each) do
       @user = FactoryBot.create :user
@@ -8,8 +8,8 @@ describe Api::V1::SessionsController do
 
     context 'when the credentials are correct' do
       before(:each) do
-        credentials = { email: @user.email, password: '12345678' }
-        post :create, { session: credentials }
+        credentials = { email: @user.email, password: '123456789' }
+        post :create, params: { session: credentials }
       end
 
       it 'returns the user record corresponding to the given credentials' do
@@ -23,7 +23,7 @@ describe Api::V1::SessionsController do
     context 'when the credentials are incorrect' do
       before(:each) do
         credentials = { email: @user.email, password: 'invalidpassword' }
-        post :create, { session: credentials }
+        post :create, params: { session: credentials }
       end
 
       it 'returns a json with an error' do
