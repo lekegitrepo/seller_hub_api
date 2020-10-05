@@ -1,12 +1,15 @@
-module Authenticate
+# frozen_string_literal: true
 
+module Authenticate
   # Devise methods overwrites
   def current_user
     @current_user ||= User.find_by(auth_token: request.headers['Authorization'])
   end
 
   def authenticate_with_token!
-    render json: { errors: 'Not authenticated' },
-                   status: :unauthorized unless current_user.present?
+    unless current_user.present?
+      render json: { errors: 'Not authenticated' },
+             status: :unauthorized
+    end
   end
 end

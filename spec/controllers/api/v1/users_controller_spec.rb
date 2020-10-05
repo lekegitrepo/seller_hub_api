@@ -55,6 +55,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do # RSpec.describe A
     context 'when user record is successfully updated' do
       before(:each) do
         @user = FactoryBot.create :user
+        request.headers['Authorization'] = @user.auth_token
         patch :update, params: { id: @user.id,
                                  user: { email: 'newmail@example.com' }, format: :json }
       end
@@ -81,17 +82,18 @@ RSpec.describe Api::V1::UsersController, type: :controller do # RSpec.describe A
 
       it 'renders the json errors on when the user could not be updated' do
         user_response = json_response
-        expect(user_response[:errors][:email]).to include 'is invalid'
+        expect(user_response[:errors]).to include 'Not authenticated'
       end
 
-      it { should respond_with 422 }
+      it { should respond_with 401 }
     end
   end
 
   describe 'DELETE #destroy' do
     before(:each) do
       @user = FactoryBot.create :user
-      delete :destroy, params: { id: @user.id, format: :json }
+      api_authorization_header @user.auth_token
+      delete :destroy, params: { id: @user.auth_token, format: :json }
     end
 
     it { should respond_with 204 }
