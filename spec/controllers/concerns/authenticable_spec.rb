@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-class Authentication
+class Authentication < ActionController::Base
   include Authenticate
 end
 
-describe Authenticable do
+describe Authenticate do
   let(:authentication) { Authentication.new }
   subject { authentication }
 
