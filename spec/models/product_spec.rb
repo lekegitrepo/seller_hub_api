@@ -28,7 +28,7 @@ RSpec.describe Product, type: :model do
 
     context "when a 'TV' title pattern is sent" do
       it 'returns the 2 products matching' do
-        expect(Product.filter_by_title('TV')).to have(2).items
+        expect(Product.filter_by_title('TV').length).to eql 2
       end
 
       it 'returns the products matching' do
