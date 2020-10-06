@@ -23,7 +23,8 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
 
     it 'returns 4 records from the database' do
       products_response = json_response
-      expect(products_response[:products]).to have(4).items
+      p "products: #{products_response.product[:products]}"
+      expect(products_response).to have(4).items
     end
 
     it { should respond_with 200 }
