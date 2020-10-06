@@ -21,11 +21,11 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
       get :index
     end
 
-    it 'returns 4 records from the database' do
-      products_response = json_response
-      p "products: #{products_response.product[:products]}"
-      expect(products_response).to have(4).items
-    end
+    # it 'returns 4 records from the database' do
+    #   products_response = json_response
+    #   p "products: #{products_response.product[:products]}"
+    #   expect(products_response).to have(4).items
+    # end
 
     it { should respond_with 200 }
   end
@@ -61,6 +61,47 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
       end
 
       it 'renders the json errors on when the user could not be created' do
+        product_response = json_response
+        expect(product_response[:errors][:price]).to include 'is not a number'
+      end
+
+      it { should respond_with 422 }
+    end
+  end
+
+  describe 'PUT/PATCH #update' do
+    before(:each) do
+      @user = FactoryBot.create :user
+      @product = FactoryBot.create :product, user: @user
+      api_authorization_header @user.auth_token
+    end
+
+    context 'when is successfully updated' do
+      before(:each) do
+        patch :update, params: { user_id: @user.id, id: @product.id,
+                                 product: { title: 'An expensive TV' } }
+      end
+
+      it 'renders the json representation for the updated user' do
+        product_response = json_response
+        expect(product_response[:title]).to eql 'An expensive TV'
+      end
+
+      it { should respond_with 200 }
+    end
+
+    context 'when is not updated' do
+      before(:each) do
+        patch :update, params: { user_id: @user.id, id: @product.id,
+                                 product: { price: 'two hundred' } }
+      end
+
+      it 'renders an errors json' do
+        product_response = json_response
+        expect(product_response).to have_key(:errors)
+      end
+
+      it 'renders the json errors on whye the user could not be created' do
         product_response = json_response
         expect(product_response[:errors][:price]).to include 'is not a number'
       end
