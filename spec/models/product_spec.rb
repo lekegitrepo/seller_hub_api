@@ -82,10 +82,10 @@ RSpec.describe Product, type: :model do
 
   describe '.search' do
     before(:each) do
-      @product1 = FactoryGirl.create :product, price: 100, title: 'Plasma tv'
-      @product2 = FactoryGirl.create :product, price: 50, title: 'Videogame console'
-      @product3 = FactoryGirl.create :product, price: 150, title: 'MP3'
-      @product4 = FactoryGirl.create :product, price: 99, title: 'Laptop'
+      @product1 = FactoryBot.create :product, price: 100, title: 'Plasma tv'
+      @product2 = FactoryBot.create :product, price: 50, title: 'Videogame console'
+      @product3 = FactoryBot.create :product, price: 150, title: 'MP3'
+      @product4 = FactoryBot.create :product, price: 99, title: 'Laptop'
     end
 
     context "when title 'videogame' and '100' a min price are set" do
