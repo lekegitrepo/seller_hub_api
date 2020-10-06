@@ -39,6 +39,21 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
     end
 
     it { should respond_with 200 }
+
+    context 'when product_ids parameter is sent' do
+      before(:each) do
+        @user = FactoryBot.create :user
+        3.times { FactoryBot.create :product, user: @user }
+        get :index, params: { product_ids: @user.product_ids }
+      end
+
+      it 'returns just the products that belong to the user' do
+        products_response = json_response
+        products_response.each do |product_response|
+          expect(product_response[:user][:email]).to eql @user.email
+        end
+      end
+    end
   end
 
   describe 'POST #create' do
