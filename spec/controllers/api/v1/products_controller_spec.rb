@@ -21,11 +21,10 @@ RSpec.describe Api::V1::ProductsController, type: :controller do
       get :index
     end
 
-    # it 'returns 4 records from the database' do
-    #   products_response = json_response
-    #   p "products: #{products_response.product[:products]}"
-    #   expect(products_response).to have(4).items
-    # end
+    it 'returns 4 records from the database' do
+      products_response = json_response
+      expect(products_response.length).to eql 4
+    end
 
     it { should respond_with 200 }
   end
