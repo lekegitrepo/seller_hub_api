@@ -15,6 +15,7 @@ RSpec.describe User, type: :model do
   it { should be_valid }
 
   it { should have_many(:products) }
+  it { should have_many(:orders) }
 
   describe 'should validate present of attributes' do
     it { should validate_presence_of(:email) }
