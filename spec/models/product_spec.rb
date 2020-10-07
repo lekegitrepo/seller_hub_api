@@ -18,6 +18,9 @@ RSpec.describe Product, type: :model do
 
   it { should belong_to :user }
 
+  it { should have_many(:placements) }
+  it { should have_many(:orders).through(:placements) }
+
   describe '.filter_by_title' do
     before(:each) do
       @product1 = FactoryBot.create :product, title: 'A plasma TV'
