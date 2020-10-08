@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  # before_validation :set_total!
+  before_validation :set_total!
 
   belongs_to :user
 

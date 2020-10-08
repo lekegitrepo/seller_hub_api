@@ -44,12 +44,12 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
       post :create, params: { user_id: current_user.id, order: order_params }
     end
 
-    # it 'returns the just user order record' do
-    #   order_response = json_response
-    #   expect(order_response[:id]).to be_present
-    # end
+    it 'returns the just user order record' do
+      order_response = json_response
+      expect(order_response[:id]).to be_present
+    end
 
-    # it { should respond_with 201 }
+    it { should respond_with 201 }
   end
 
   # it 'includes the total for the order' do
