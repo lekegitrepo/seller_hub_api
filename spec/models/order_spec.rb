@@ -21,8 +21,6 @@ RSpec.describe Order, type: :model do
       product_one = FactoryBot.create :product, price: 100
       product_two = FactoryBot.create :product, price: 85
 
-      # @order = FactoryBot.build :order, product_ids: [product_one.id, product_two.id]
-
       placement_one = FactoryBot.build :placement, product: product_one, quantity: 3
       placement_two = FactoryBot.build :placement, product: product_two, quantity: 15
 
@@ -54,7 +52,6 @@ RSpec.describe Order, type: :model do
     before do
       product_one = FactoryBot.create :product, price: 100, quantity: 5
       product_two = FactoryBot.create :product, price: 85, quantity: 10
-
 
       placement_one = FactoryBot.build :placement, product: product_one, quantity: 3
       placement_two = FactoryBot.build :placement, product: product_two, quantity: 15

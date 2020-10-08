@@ -53,7 +53,7 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
 
       product_one = FactoryBot.create :product
       product_two = FactoryBot.create :product
-      order_params = { product_ids_and_quantities: [[product_1.id, 2],[ product_2.id, 3]]}
+      order_params = { product_ids_and_quantities: [[product_one.id, 2], [product_two.id, 3]] }
       post :create, params: { user_id: current_user.id, order: order_params }
     end
 
