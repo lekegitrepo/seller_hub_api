@@ -21,7 +21,9 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
     before(:each) do
       current_user = FactoryBot.create :user
       api_authorization_header current_user.auth_token
-      @order = FactoryBot.create :order, user: current_user
+
+      @product = FactoryBot.create :product
+      @order = FactoryBot.create :order, user: current_user, product_ids: [@product.id]
       get :show, params: { user_id: current_user.id, id: @order.id }
     end
 
@@ -31,6 +33,17 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
     end
 
     it { should respond_with 200 }
+
+    it 'includes the total for the order' do
+      order_total = json_response
+      expect(order_total[:total]).to eql @order.total.to_s
+    end
+
+    it 'includes the products on the order' do
+      order_response = json_response
+      p "order_response: #{order_response}"
+      expect(order_response[:products].length).to eql 1
+    end
   end
 
   describe 'POST #create' do
@@ -51,14 +64,4 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
 
     it { should respond_with 201 }
   end
-
-  # it 'includes the total for the order' do
-  #   order_response = json_response
-  #   expect(order_response).to eql @order.total.to_s
-  # end
-
-  # it 'includes the products on the order' do
-  #   order_response = json_response
-  #   expect(order_response.length).to eql 1
-  # end
 end

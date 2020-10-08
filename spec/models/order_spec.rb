@@ -25,7 +25,7 @@ RSpec.describe Order, type: :model do
     end
 
     it 'returns the total amount to pay for the products' do
-      expect{@order.set_total!}.to change{@order.total}.from(0).to(185)
+      expect{ @order.set_total! }.to change{ @order.total }.from(0).to(185)
     end
   end
 end
