@@ -21,11 +21,19 @@ RSpec.describe Order, type: :model do
       product_one = FactoryBot.create :product, price: 100
       product_two = FactoryBot.create :product, price: 85
 
-      @order = FactoryBot.build :order, product_ids: [product_one.id, product_two.id]
+      # @order = FactoryBot.build :order, product_ids: [product_one.id, product_two.id]
+
+      placement_one = FactoryBot.build :placement, product: product_one, quantity: 3
+      placement_two = FactoryBot.build :placement, product: product_two, quantity: 15
+
+      @order = FactoryBot.build :order
+
+      @order.placements << placement_one
+      @order.placements << placement_two
     end
 
     it 'returns the total amount to pay for the products' do
-      expect{ @order.set_total! }.to change{ @order.total }.from(0).to(185)
+      expect{@order.set_total!}.to change{@order.total.to_f}.from(0).to(1575)
     end
   end
 
