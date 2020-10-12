@@ -31,6 +31,8 @@ gem 'active_model_serializers'
 # Devise
 gem 'devise'
 
+gem 'delayed_job_active_record'
+
 gem 'kaminari'
 
 # Reduces boot times through caching; required in config/boot.rb
