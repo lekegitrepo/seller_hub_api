@@ -43,7 +43,6 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
 
     it 'includes the products on the order' do
       order_response = json_response
-      p "order_response: #{order_response}"
       expect(order_response[:products].length).to eql 1
     end
   end
