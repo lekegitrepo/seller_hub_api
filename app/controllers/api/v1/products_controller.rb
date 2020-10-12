@@ -5,11 +5,12 @@ class Api::V1::ProductsController < ApplicationController
 
   def index
     # respond_with Product.all
-    products = Product.search(params).page(params[:page]).per(params[:per_page])
-    render json: { products: products, meta: { pagination:
-                                       { per_page: params[:per_page],
-                                         total_pages: products.total_pages,
-                                         total_objects: products.total_count } } }
+    search_result = Product.search(params).page(params[:page]).per(params[:per_page])
+    # p "This products controller: #{respond_with products}"
+    render json: { products: search_result, meta: { pagination:
+                                   { per_page: params[:per_page],
+                                     total_pages: search_result.total_pages,
+                                     total_objects: search_result.total_count } } }
   end
 
   def show
