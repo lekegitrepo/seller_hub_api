@@ -3,7 +3,9 @@ class Api::V1::OrdersController < ApplicationController
   respond_to :json
 
   def index
-    respond_with current_user.orders
+    # respond_with current_user.orders
+    orders = current_user.orders.page(params[:page]).per(params[:per_page])
+    render json: orders, meta: pagination(products, params[:per_page]), adapter: :json
   end
 
   def show
@@ -28,5 +30,11 @@ class Api::V1::OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(product_ids: [])
+  end
+
+  def pagination(paginated_array, per_page)
+    { pagination: { per_page: per_page.to_i,
+                    total_pages: paginated_array.total_pages,
+                    total_objects: paginated_array.total_count } }
   end
 end
