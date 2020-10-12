@@ -42,10 +42,4 @@ class Api::V1::ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(:title, :price, :published)
   end
-
-  def pagination(paginated_array, per_page)
-    { pagination: { per_page: per_page.to_i,
-                    total_pages: paginated_array.total_pages,
-                    total_objects: paginated_array.total_count } }
-  end
 end
