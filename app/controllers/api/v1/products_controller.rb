@@ -5,12 +5,8 @@ class Api::V1::ProductsController < ApplicationController
 
   def index
     # respond_with Product.all
-    search_result = Product.search(params).page(params[:page]).per(params[:per_page])
-    # p "This products controller: #{respond_with products}"
-    render json: { products: search_result, meta: { pagination:
-                                   { per_page: params[:per_page],
-                                     total_pages: search_result.total_pages,
-                                     total_objects: search_result.total_count } } }
+    products = Product.search(params).page(params[:page]).per(params[:per_page])
+    render json: products, meta: pagination(products, params[:per_page]), adapter: :json
   end
 
   def show
@@ -45,5 +41,11 @@ class Api::V1::ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:title, :price, :published)
+  end
+
+  def pagination(paginated_array, per_page)
+    { pagination: { per_page: per_page.to_i,
+                    total_pages: paginated_array.total_pages,
+                    total_objects: paginated_array.total_count } }
   end
 end
