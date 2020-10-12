@@ -10,7 +10,7 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
     end
 
     it 'returns 4 order records from the user' do
-      orders_response = json_response
+      orders_response = json_response[:orders]
       expect(orders_response.length).to eql 4
     end
 
